@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import sectionImage from "../Images/home.svg";
+
 const Home = () => {
   return (
     <div className="flex items-center py-10 px-24 gradient-background">

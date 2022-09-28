@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import createImage from "../Images/create.png";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
-const CreateEvent = ({ setEvent }) => {
+const CreateEvent = ({ setEvent, setStart, setEnd }) => {
   const {
     register,
     formState: { errors },
@@ -12,10 +15,19 @@ const CreateEvent = ({ setEvent }) => {
 
   const navigate = useNavigate();
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  const start = format(startDate, "dd LLLL h:mm a");
+  const end = format(endDate, "dd LLLL h:mm a");
+
   const onSubmit = (data) => {
     setEvent(data);
+    setStart(start);
+    setEnd(end);
     navigate("/event");
   };
+
   return (
     <div className="flex items-center px-32 justify-center h-screen gradient-background">
       {/* image section */}
@@ -46,7 +58,7 @@ const CreateEvent = ({ setEvent }) => {
                     },
                   })}
                 />
-                <label className="label pt-0">
+                <label className="label p-0">
                   {errors.eName?.type === "required" && (
                     <span className="label-text-alt text-error">
                       {errors.eName.message}
@@ -69,13 +81,53 @@ const CreateEvent = ({ setEvent }) => {
                     },
                   })}
                 />
-                <label className="label pt-0">
+                <label className="label p-0">
                   {errors.hName?.type === "required" && (
                     <span className="label-text-alt text-error">
                       {errors.hName.message}
                     </span>
                   )}
                 </label>
+              </div>
+
+              <div className="form-control">
+                <label className="label pb-1">
+                  <span className="label-text text-[#4F4F4F]">
+                    Start Date &#38; Time
+                  </span>
+                </label>
+                <DatePicker
+                  className="input focus:outline-offset-0 input-bordered text-base pb-0.5 font-medium w-full mb-1"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  selectsStart
+                  timeInputLabel="Time:"
+                  startDate={startDate}
+                  endDate={endDate}
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                  fixedHeight
+                  showTimeInput
+                />
+              </div>
+              <div className="form-control">
+                <label className="label pb-1">
+                  <span className="label-text text-[#4F4F4F]">
+                    End Date &#38; Time
+                  </span>
+                </label>
+                <DatePicker
+                  className="input focus:outline-offset-0 input-bordered text-base pb-0.5 font-medium w-full mb-1"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                  timeInputLabel="Time:"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                  fixedHeight
+                  showTimeInput
+                />
               </div>
 
               <div className="form-control mt-6">
