@@ -29,13 +29,13 @@ const CreateEvent = ({ setEvent, setStart, setEnd }) => {
   };
 
   return (
-    <div className="flex items-center lg:px-28 px-16 lg:py-20 py-10 justify-center gradient-background">
+    <div className="flex flex-col xl:flex-row items-center lg:px-28 px-10 lg:py-20 py-10 gap-10 lg:gap-20 justify-center gradient-background">
       {/* image section */}
-      <div className="w-7/12">
+      <div className="xl:w-7/12 w-full">
         <img src={createImage} alt="" />
       </div>
       {/* form section */}
-      <div className="w-5/12 flex lg:justify-center">
+      <div className="xl:w-5/12 w-full flex lg:justify-center">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 mt-5 mb-16 lg:m-0">
           <div className="card-body">
             <h2 className="font-bold text-center text-3xl text-[#240D57] mb-4 helvetica-font">
